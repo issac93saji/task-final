@@ -1,0 +1,41 @@
+
+
+{% extends 'events/base.html' %}
+{% block body_block %}
+<a href="/"><--Back to home</a>
+<div class="container">
+
+        <h1>Update User Profile...</h1>
+
+        {% if updated %}
+            <strong>Profile Updated Successfully...</strong>
+
+            <a href="/">Return to the homepage.</a><br />
+        {% else %}
+            <br>
+            <strong>Update your profile here!</strong><br/><br>
+
+        <form id="user_form" method="post" action="/update/"  enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            {{ user_form.as_p }}
+
+            <input type="submit" name="submit" value="Update" />
+        </form>
+
+        {% endif %}
+</div>
+
+{% endblock %}
+
+<script>
+$(document).ready(function(){
+    $("input").focus(function(){
+        $(this).css("background-color", "#cccccc");
+    });
+    $("input").blur(function(){
+        $(this).css("background-color", "#ffffff");
+    });
+});
+</script>

@@ -1,0 +1,39 @@
+
+
+{% extends 'events/base.html' %}
+
+{% block body_block %}
+
+
+<div class="container">
+
+<h1>{{ event.events_name }}</h1>
+
+    <label for="comment">Comments:</label>
+<ul class="list-group">
+{%  for comment in comments %}
+    {% for uname in comment.uid.all %}
+     <li class="list-group-item">
+         {{ comment.data }}
+         --{{ uname.user.username }}</li>
+        {% endfor %}
+    <br>
+{% endfor %}
+</ul>
+
+<form id="event_form" method="POST" action="/comment" enctype="multipart/form-data">
+
+        {% csrf_token %}
+
+       <input type="hidden" id="id" name="id"  value="{{ event.id }}">
+
+    <div class="form-group">
+    <input class="form-control"  type="text" id="'comment" name="comment" maxlength="100">
+    <input type="submit" value="Post Comment">
+    </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

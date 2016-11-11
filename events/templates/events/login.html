@@ -1,0 +1,37 @@
+
+
+
+    {% extends 'events/base.html' %}
+
+{% block body_block %}
+
+
+ {% load socialaccount %}
+
+
+
+    <img src="https://en.facebookbrand.com/wp-content/uploads/2016/05/FB-fLogo-Blue-broadcast-2.png" style="width:25px;height:25px;" >
+<a href="{% provider_login_url "facebook" method="oauth2" %}">Facebook OAuth2</a>
+    <a href="{% provider_login_url "google" method="oauth2" %}">Google login</a>
+
+    <div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+</div>
+
+<div class="container">
+<form id="login_form" method="post" action="/login/">
+        {% csrf_token %}
+        Username: <input type="text" name="username" value="" size="50" />
+        <br />
+        Password: <input type="password" name="password" value="" size="50" />
+        <br />
+
+        <input type="submit" value="submit" />
+</form>
+</div>
+
+
+{% endblock %}

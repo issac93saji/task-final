@@ -1,0 +1,20 @@
+## Standard ignored patterns
+############################
+*~
+*.pyc
+.*.swp
+*.bak
+
+mysite/settings_local.py
+settings_local.py
+*.sqlite3
+/media/
+/www/
+/uploads/
+/static/
+/logs/*.log
+/taskapp123/
+.project
+.metadata/
+.pydevproject
+/.idea/

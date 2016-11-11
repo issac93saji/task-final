@@ -1,0 +1,108 @@
+
+
+{% extends 'events/base.html' %}
+
+{% block body_block %}
+{% load staticfiles %}
+{%load static %}
+
+
+      <div class="jumbotron">
+        <h2>Welcome to Events </h2>
+      </div>
+        <div class="well">
+            {% if user.is_authenticated %}
+                <div align="left"> hello {{ user.username }}! <a href="logout/">Logout ??</a></div>
+
+                {% if profile.profile_image %}
+                <img src="{{ MEDIA_URL }}{{ profile.profile_image.url }}" style="width:100px;height:70px;" >
+                {% endif %}
+                <div style="display: inline"><a href="update/">edit profile</a> </div>
+            {% else %}
+                <div align="left"> <a href="login/">Login Here..</a></div>
+            {% endif %}
+        </div>
+
+    <br><br><br>
+
+    {% for event in events %}
+         <h3 class="panel-title"><li><a href="{{ event.id }}">{{ event.events_name }}</a></li></h3>
+    {% endfor %}
+
+    <br><br>
+    <!--
+    <a id="reg" href="#">Register Here..</a>
+
+    -->
+    <a id="reg" href="register">Register Here..</a>
+
+
+
+    <div id="postContact" class="jumbotron">
+
+{#        {% if contactsaved %}#}
+{#            <div class="alert alert-success">#}
+{#                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>#}
+{#                <strong>Thank you !</strong> for you valuable feedback.#}
+{#            </div>#}
+{#        {% endif %}#}
+
+            <button type="button" style="display: block; margin: 0 auto;" data-toggle="modal" data-target="#myModal">contact us
+        </button>
+    </div>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+
+        <div id="form-div">
+            <center><h4>Please contact us at <b>Sayone Technologies</b>, Kochi</h4></center>
+            <form id="Contact_form" method="post">
+                {% csrf_token %}
+                {{ contactform }}
+                <button id="btn1" class="btn btn-success" type="button"> Click me </button>
+            </form>
+        </div>
+        </div>
+      <div class="modal-footer">
+        <button id="btn2" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+
+    $(document).ready(function() {
+        var form = $('#Contact_form');
+        $("#btn1").click(function(e){
+            $.ajax({
+                type: 'POST',
+                url: '/contact/',
+                data: form.serialize(),
+
+                    success: function(response) {
+                        alert('thank you');
+                        $("#btn2").click();
+                },
+                error: function (data) {
+                    $("#form-div").html("Something went wrong!");
+                }
+            });
+        })
+
+    });
+
+</script>
+
+
+{% endblock %}
+
+

@@ -1,0 +1,89 @@
+
+
+
+
+
+
+
+    {% if contactsaved %}
+        <h3>Feedback saved</h3>
+    {% else %}
+        <h3>Feedback not saved</h3>
+        <div id="form-div">
+            <form id="Contact_form" method="post">
+                {% csrf_token %}
+                {{ contactform.as_p }}
+                <button id="btn1" class="btn btn-success" type="button"> Click me </button>
+                <input type="button" name="submit" value="post"  id="form_submit"/>
+            </form>
+        </div>
+    {% endif %}
+
+
+
+
+
+<script >
+    var form_submit = $('#form_submit');
+
+
+$(document).ready(function(){
+
+    $('#btn1').live('click',function()
+    {
+        alert()
+    });
+
+    $('#btn1').click(function()
+    {
+
+        alert('ggggg');
+
+    }
+    );
+
+
+
+
+});
+
+
+    form_submit.click(function (e) {
+        alert()
+        $.ajax({
+            type:'POST',
+            url: '/events/contact/',
+            data: frm.serialize(),
+            success: function (data) {
+                $("#form-div").replaceWith(data);
+            },
+            error: function(data) {
+                $("#form-div").html("Something went wrong!");
+            }
+        });
+    });
+
+
+
+
+</script>
+
+
+
+{#    <script language="JavaScript">#}
+{#        $(document).ready(function() {#}
+{#            $('#Contact_form').submit(function() {#}
+{#            $.ajax({ // create an AJAX call...#}
+{#                data: $(this).serialize(),#}
+{#                type: $(this).attr('POST'),#}
+{#                url: $(this).attr('/events/contact/'),#}
+{#                success: function(response) {#}
+{#                    $('#form-div).html(response);#}
+{#                }#}
+{#                });#}
+{#                return false;#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+
+
